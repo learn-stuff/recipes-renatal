@@ -1,0 +1,6 @@
+(require '[figwheel-sidecar.repl-api :as figwheel]) (figwheel/cljs-repl)
+(in-ns 'ios:future-app.ios.core)
+(dispatch [:set-greeting "Привет, Алексей!!!"])
+(require '[figwheel-sidecar.repl-api :as figwheel]) (figwheel/cljs-repl)
+(dispatch [:set-greeting "Привет, Алексей!!!"])
+(start-figwheel "ios")
