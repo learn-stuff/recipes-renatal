@@ -8,7 +8,7 @@
                            [reagent "0.8.1" :exclusions [cljsjs/react cljsjs/react-dom cljsjs/react-dom-server cljsjs/create-react-class]]
 [re-frame "0.10.6"]]
             :plugins [[lein-cljsbuild "1.1.4"]
-                      [lein-figwheel "0.5.14"]]
+                      [lein-figwheel "0.5.18"]]
             :clean-targets ["target/" "index.ios.js" "index.android.js" #_($PLATFORM_CLEAN$)]
             :aliases {"prod-build" ^{:doc "Recompile code with prod profile."}
                                    ["do" "clean"
@@ -17,8 +17,9 @@
                                    ["do" "clean"
                                     ["with-profile" "advanced" "cljsbuild" "once"]]}
             :jvm-opts ["-XX:+IgnoreUnrecognizedVMOptions" "--add-modules=java.xml.bind"]
-            :profiles {:dev {:dependencies [[figwheel-sidecar "0.5.14"]
-                                            [cider/piggieback "0.3.10"]]
+            :profiles {:dev {:dependencies [[figwheel-sidecar "0.5.18"]
+                                            [cider/piggieback "0.4.0"]
+                                            [nrepl "0.6.0"]]
                              :source-paths ["src" "env/dev"]
                              :cljsbuild    {:builds [
                                                      {:id           "ios"
