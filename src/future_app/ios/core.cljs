@@ -42,10 +42,10 @@
     (fn []
       [react/view
        [react/flat-list {:data (clj->js @recipe-names)
-                   :key-extractor (fn [recipe _] recipe)
-                   :render-item (fn [e]
-                                  (let [recipe (aget e "item")]
-                                    (r/as-element [react/text {:style {:font-size 18}} recipe])))}]])))
+                         :key-extractor (fn [recipe _] recipe)
+                         :render-item (fn [e]
+                                        (let [recipe (aget e "item")]
+                                          (r/as-element [react/text {:style {:font-size 18}} recipe])))}]])))
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
