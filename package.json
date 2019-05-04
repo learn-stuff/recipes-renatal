@@ -14,6 +14,7 @@
     "@babel/plugin-external-helpers": "^7.0.0",
     "react": "16.6.1",
     "react-native": "0.57.7",
+    "dropbox-autent": "github:luggagejs/dropbox-autent#0.0.2",
     "@luggage/core": "^1.0.9"
   },
   "devDependencies": {

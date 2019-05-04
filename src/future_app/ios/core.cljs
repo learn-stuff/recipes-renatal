@@ -2,6 +2,7 @@
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
             [future-app.ui.components.react :as react]
+            [future-app.ui.components.token :as token]
             [future-app.events]
             [future-app.subs]))
 
@@ -16,10 +17,9 @@
 (defn alert [title]
   (.alert (.-Alert ReactNative) title))
 
-(defonce api-key "w7gUxoguV8wAAAAAAAATX2oQZGifNx-zCjFurDpH6n-KMN0zA_40QkWsL8fOgqcw")
-
-(def recipes
-  (-> api-key
+(defn recipes
+  [token]
+  (-> token
       (DropboxBacked.)
       (Luggage.)
       (.collection "recipes")))
@@ -31,8 +31,10 @@
     (mapv :title r)
     (dispatch [:set-recipe-names r])))
 
-(defn fetch-recipes []
-  (-> recipes
+(defn fetch-recipes
+  [token]
+  (-> token
+      recipes
       (.read)
       (.then handle-recipes-load)
       (.catch println)))
@@ -47,14 +49,25 @@
                                         (let [recipe (aget e "item")]
                                           (r/as-element [react/text {:style {:font-size 18}} recipe])))}]])))
 
+(def with-token-component
+  (token/make-dropbox-token-component
+   (r/create-class
+    {:component-did-mount
+     (fn [comp]
+       (let [props (.-props comp)
+             token (aget props "token")]
+         (fetch-recipes token)))
+
+     :reagent-render
+     (fn [props]
+       [recipes-component])})))
+
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
     (fn []
-      [react/view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-       [recipes-component]])))
+      [with-token-component])))
 
 (defn init []
-  (fetch-recipes)
   (dispatch-sync [:initialize-db])
   (.registerComponent app-registry "FutureApp" #(r/reactify-component app-root)))
 
