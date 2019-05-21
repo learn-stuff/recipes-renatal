@@ -6,7 +6,8 @@
     "prod": "env/prod"
   },
   "modules": [
-    "@luggage/core"
+    "@luggage/core",
+    "dropbox-autent"
   ],
   "imageDirs": [
     "images"

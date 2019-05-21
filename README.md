@@ -2,6 +2,14 @@
 
 Just for experiments with luggage and [re-natal](https://github.com/drapanjanas/re-natal)
 
+
+## Prepare
+
+```
+npm install
+re-natal require dropbox-autent
+```
+
 ## Usage
 
 Initially the `index.*.js` files are generated with the production profile, ready for deployment.  
